@@ -1,3 +1,2 @@
 # common
-common func
-公用的function
+封装的function
