@@ -3,11 +3,11 @@ package common
 import (
 	"bytes"
 	"crypto/md5"
+	cRand "crypto/rand"
 	"fmt"
 	"math/big"
 	"math/rand"
 	"time"
-	cRand "crypto/rand"
 )
 
 func MD5(str string) string {
@@ -25,13 +25,14 @@ func EncryptPassword(password string) (string, string) {
 }
 
 // CheckEncryptPassword: auth encrypt password
-func CheckEncryptPassword(password, randomString , encryptPassword string) bool{
-	if MD5(randomString + password) == encryptPassword{
+func CheckEncryptPassword(password, randomString, encryptPassword string) bool {
+	if MD5(randomString+password) == encryptPassword {
 		return true
-	}else{
+	} else {
 		return false
 	}
 }
+
 // CreateRandomString: create random string
 func CreateRandomString(len int) string {
 	var container string
@@ -44,4 +45,12 @@ func CreateRandomString(len int) string {
 		container += string(str[randomInt.Int64()])
 	}
 	return container
+}
+
+// 根据用户id生成token
+func CreateUidToken(uid uint64) string {
+	randString := CreateRandomString(5)
+	timeNow := time.Now().Unix()
+	token := fmt.Sprintf("%s:%d:%d", randString, uid, timeNow)
+	return MD5(token)
 }

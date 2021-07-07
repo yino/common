@@ -35,7 +35,7 @@ func ArraySearch(search interface{}, arr interface{}) (int, bool) {
 func ArrayCountValues(arr interface{}) (map[interface{}]int, bool) {
 	result := make(map[interface{}]int)
 	arrValue := getArrValue(arr)
-	if arrValue.Len() == 0{
+	if arrValue.Len() == 0 {
 		return result, false
 	}
 	for i := 0; i < arrValue.Len(); i++ {
@@ -45,7 +45,7 @@ func ArrayCountValues(arr interface{}) (map[interface{}]int, bool) {
 	return result, true
 }
 
-func getArrValue(arr interface{}) reflect.Value{
+func getArrValue(arr interface{}) reflect.Value {
 	objType := reflect.TypeOf(arr).Kind()
 	if objType != reflect.Array && objType != reflect.Slice {
 		panic("Incorrect parameter type：arr interface unequal to slice or array")
